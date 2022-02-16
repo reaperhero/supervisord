@@ -1,6 +1,3 @@
-//go:build !release
-// +build !release
-
 package main
 
 import (
@@ -8,4 +5,4 @@ import (
 )
 
 //HTTP auto generated
-var HTTP http.FileSystem = http.Dir("./webgui")
+var HTTP http.FileSystem = http.Dir("./static")
