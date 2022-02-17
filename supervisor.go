@@ -514,7 +514,8 @@ func (s *Supervisor) startHTTPServer() {
 			cond := sync.NewCond(&sync.Mutex{})
 			cond.L.Lock()
 			defer cond.L.Unlock()
-			go s.xmlRPC.StartInetHTTPServer(httpServerConfig.GetString("username", ""),
+			go s.xmlRPC.StartInetHTTPServer(
+				httpServerConfig.GetString("username", ""),
 				httpServerConfig.GetString("password", ""),
 				addr,
 				s,
@@ -522,7 +523,8 @@ func (s *Supervisor) startHTTPServer() {
 					cond.L.Lock()
 					cond.Signal()
 					cond.L.Unlock()
-				})
+				},
+			)
 			cond.Wait()
 		}
 	}

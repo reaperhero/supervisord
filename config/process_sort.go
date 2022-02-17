@@ -33,7 +33,7 @@ type ProcessSorter struct {
 func NewProcessSorter() *ProcessSorter {
 	return &ProcessSorter{
 		dependsOnGraph: make(map[string][]string),
-		procsWithooutDepends: make([]*Entry, 0)
+		procsWithooutDepends: make([]*Entry, 0),
 	}
 }
 
