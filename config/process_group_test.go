@@ -1,7 +1,7 @@
 package config
 
 import (
-	"supervisord/util"
+	"github.com/reaperhero/supervisord/util"
 	"testing"
 )
 

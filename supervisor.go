@@ -89,13 +89,14 @@ type ProcessTailLog struct {
 
 // NewSupervisor create a Supervisor object with supervisor configuration file
 func NewSupervisor(configFile string) *Supervisor {
-	return &Supervisor{config: config.NewConfig(configFile),
+	return &Supervisor{
+		config:     config.NewConfig(configFile),
 		procMgr:    process.NewManager(),
 		xmlRPC:     NewXMLRPC(),
-		restarting: false}
+		restarting: false,
+	}
 }
 
-// GetConfig get the loaded supervisor configuration
 func (s *Supervisor) GetConfig() *config.Config {
 	return s.config
 }

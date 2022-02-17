@@ -31,8 +31,10 @@ type ProcessSorter struct {
 
 // NewProcessSorter creates sorter
 func NewProcessSorter() *ProcessSorter {
-	return &ProcessSorter{dependsOnGraph: make(map[string][]string),
-		procsWithooutDepends: make([]*Entry, 0)}
+	return &ProcessSorter{
+		dependsOnGraph: make(map[string][]string),
+		procsWithooutDepends: make([]*Entry, 0)
+	}
 }
 
 func (p *ProcessSorter) initDepends(programConfigs []*Entry) {
@@ -116,26 +118,6 @@ func (p *ProcessSorter) inFinishedPrograms(programName string, finishedPrograms 
 	return true
 }
 
-/*func (p *ProcessSorter) SortProcess(procs []*Process) []*Process {
-	prog_configs := make([]*Entry, 0)
-	for _, proc := range procs {
-		if proc.config.IsProgram() {
-			prog_configs = append(prog_configs, proc.config)
-		}
-	}
-
-	result := make([]*Process, 0)
-	for _, config := range p.SortProgram(prog_configs) {
-		for _, proc := range procs {
-			if proc.config == config {
-				result = append(result, proc)
-			}
-		}
-	}
-
-	return result
-}*/
-
 // SortProgram sort the program  and return the result
 func (p *ProcessSorter) SortProgram(programConfigs []*Entry) []*Entry {
 	p.initDepends(programConfigs)
@@ -156,10 +138,6 @@ func (p *ProcessSorter) SortProgram(programConfigs []*Entry) []*Entry {
 	}
 	return result
 }
-
-/*func sortProcess(procs []*Process) []*Process {
-	return NewProcessSorter().SortProcess(procs)
-}*/
 
 func sortProgram(configs []*Entry) []*Entry {
 	return NewProcessSorter().SortProgram(configs)

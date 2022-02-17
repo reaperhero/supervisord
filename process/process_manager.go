@@ -18,7 +18,8 @@ type Manager struct {
 
 // NewManager creates new Manager object
 func NewManager() *Manager {
-	return &Manager{procs: make(map[string]*Process),
+	return &Manager{
+		procs: make(map[string]*Process),
 		eventListeners: make(map[string]*Process),
 	}
 }

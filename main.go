@@ -14,7 +14,6 @@ import (
 	"github.com/jessevdk/go-flags"
 	"github.com/ochinchina/go-ini"
 	"github.com/reaperhero/supervisord/config"
-	"github.com/reaperhero/supervisord/logger"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -26,14 +25,13 @@ type Options struct {
 }
 
 func init() {
-	nullLogger := logger.NewNullLogger(logger.NewNullLogEventEmitter())
-	log.SetOutput(nullLogger)
+	log.SetOutput(os.Stdout)
+	log.SetLevel(log.DebugLevel)
 	if runtime.GOOS == "windows" {
 		log.SetFormatter(&log.TextFormatter{DisableColors: true, FullTimestamp: true})
 	} else {
 		log.SetFormatter(&log.TextFormatter{DisableColors: false, FullTimestamp: true})
 	}
-	log.SetLevel(log.DebugLevel)
 }
 
 func initSignals(s *Supervisor) {
@@ -92,25 +90,7 @@ func loadEnvFile() {
 }
 
 func findSupervisordConf() (string, error) {
-	possibleSupervisordConf := []string{options.Configuration,
-		"./supervisord.conf",
-		"./etc/supervisord.conf",
-		"/etc/supervisord.conf",
-		"/etc/supervisor/supervisord.conf",
-		"../etc/supervisord.conf",
-		"../supervisord.conf"}
-
-	for _, file := range possibleSupervisordConf {
-		if _, err := os.Stat(file); err == nil {
-			absFile, err := filepath.Abs(file)
-			if err == nil {
-				return absFile, nil
-			}
-			return file, nil
-		}
-	}
-
-	return "", fmt.Errorf("fail to find supervisord.conf")
+	return "/etc/supervisor/supervisord.conf", nil
 }
 
 func runServer() {

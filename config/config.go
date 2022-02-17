@@ -91,7 +91,6 @@ type Config struct {
 	configFile string
 	// mapping between the section name and configuration entry
 	entries map[string]*Entry
-
 	ProgramGroup *ProcessGroup
 }
 

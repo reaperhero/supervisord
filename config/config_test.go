@@ -2,7 +2,7 @@ package config
 
 import (
 	"fmt"
-	"supervisord/util"
+	"github.com/reaperhero/supervisord/util"
 	"io/ioutil"
 	"os"
 	"path/filepath"
