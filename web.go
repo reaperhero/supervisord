@@ -20,6 +20,6 @@ func NewSupervisorWebgui(supervisor *Supervisor) *SupervisorWebgui {
 
 // CreateHandler create a http handler to process the request from WEBGUI
 func (sw *SupervisorWebgui) CreateHandler() http.Handler {
-	sw.router.PathPrefix("/").Handler(http.FileServer(HTTP))
+	sw.router.PathPrefix("/").Handler(http.FileServer(http.Dir("./static")))
 	return sw.router
 }

@@ -277,9 +277,11 @@ func init() {
 }
 
 func startTickTimer() {
-	tickConfigs := map[string]int64{"TICK_5": 5,
+	tickConfigs := map[string]int64{
+		"TICK_5":    5,
 		"TICK_60":   60,
-		"TICK_3600": 3600}
+		"TICK_3600": 3600,
+	}
 
 	// start a Tick timer
 	go func() {
@@ -311,10 +313,7 @@ func NewEventListenerManager() *EventListenerManager {
 		eventListeners: make(map[string]map[*EventListener]bool)}
 }
 
-func (em *EventListenerManager) registerEventListener(eventListenerName string,
-	events []string,
-	listener *EventListener) {
-
+func (em *EventListenerManager) registerEventListener(eventListenerName string, events []string, listener *EventListener) {
 	em.namedListeners[eventListenerName] = listener
 	allEvents := make(map[string]bool)
 	for _, event := range events {
@@ -414,11 +413,13 @@ func NewProcCommEvent(eventType string,
 	groupName string,
 	pid int,
 	data string) *ProcCommEvent {
-	return &ProcCommEvent{BaseEvent: BaseEvent{eventType: eventType, serial: nextEventSerial()},
+	return &ProcCommEvent{
+		BaseEvent:   BaseEvent{eventType: eventType, serial: nextEventSerial()},
 		processName: procName,
 		groupName:   groupName,
 		pid:         pid,
-		data:        data}
+		data:        data,
+	}
 }
 
 // GetBody returns process communication event' body

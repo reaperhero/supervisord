@@ -73,7 +73,8 @@ func NewFileLogger(name string, maxSize int64, backups int, logEventEmitter LogE
 		fileSize:        0,
 		file:            nil,
 		logEventEmitter: logEventEmitter,
-		locker:          locker}
+		locker:          locker,
+	}
 	logger.openFile(false)
 	return logger
 }
@@ -414,8 +415,10 @@ type StdLogger struct {
 
 // NewStdoutLogger creates StdLogger object
 func NewStdoutLogger(logEventEmitter LogEventEmitter) *StdLogger {
-	return &StdLogger{logEventEmitter: logEventEmitter,
-		writer: os.Stdout}
+	return &StdLogger{
+		logEventEmitter: logEventEmitter,
+		writer:          os.Stdout,
+	}
 }
 
 // Write output to stdout/stderr
@@ -429,8 +432,10 @@ func (l *StdLogger) Write(p []byte) (int, error) {
 
 // NewStderrLogger creates stderr logger
 func NewStderrLogger(logEventEmitter LogEventEmitter) *StdLogger {
-	return &StdLogger{logEventEmitter: logEventEmitter,
-		writer: os.Stderr}
+	return &StdLogger{
+		logEventEmitter: logEventEmitter,
+		writer:          os.Stderr,
+	}
 }
 
 // LogCaptureLogger capture the log for further analysis
@@ -451,10 +456,13 @@ func NewLogCaptureLogger(underlineLogger Logger,
 		captureMaxBytes,
 		stdType,
 		procName,
-		groupName)
-	return &LogCaptureLogger{underlineLogger: underlineLogger,
+		groupName,
+	)
+	return &LogCaptureLogger{
+		underlineLogger:        underlineLogger,
 		procCommEventCapWriter: w,
-		procCommEventCapture:   eventCapture}
+		procCommEventCapture:   eventCapture,
+	}
 }
 
 // SetPid sets pid of program
